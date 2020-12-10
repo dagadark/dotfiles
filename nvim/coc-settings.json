@@ -1,0 +1,47 @@
+{
+    "languageserver": {
+        "go": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "trace.server": "verbose",
+            "filetypes": [
+                "go"
+            ]
+        },
+        "ccls": {
+            "command": "ccls",
+            "args": [
+                "--log-file=/tmp/ccls.log",
+                "-v=1"
+            ],
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls",
+                "compile_commands.json"
+            ],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                },
+                "client": {
+                    "snippetSupport": true
+                },
+                "index": {
+                    "onChange": true
+                },
+                "highlight": {
+                    "lsRanges": true
+                }
+            }
+        }
+    }
+}

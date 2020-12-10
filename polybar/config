@@ -1,0 +1,167 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+background = #282a36
+foreground = #f8f8f2
+selection = #44475a
+
+cyan = #8be9fd
+green =	#50fa7b
+orange = #ffb86c	
+yellow = #f1fa8c  	
+purple = #bd93f9
+red = #ff5555
+pink = #ff79c6
+
+[bar/dagadark]
+monitor=${env:MONITOR:HDMI-1}
+tray-position= ${env:TRAY_POSITION:right}
+enable-ipc = true
+width = 100%
+height = 25
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground} 
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 2
+module-margin-right = 2
+
+underline-size = 2
+font-0 = "Noto Sans:fontformat=truetype:size=10;0"
+font-1 = "Noto Sans CJK JP:fontformat=truetype:size=10;0
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;0"
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=10;0"
+font-4 = "Font Awesome 5 Brands:style=Regular:pixelsize=10;0"
+
+modules-left = i3 
+modules-center = player-mpris-tail
+modules-right = pomobar date backlight volume battery-combined-udev 
+
+override-redirect = false
+tray-padding = 2
+tray-background = ${colors.background}
+tray-foreground = ${colors.foreground}
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+pin-workspaces = true
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 9;
+ws-icon-7 = 10;
+ws-icon-default =  
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = ${colors.selection}
+
+
+label-focused = %index%: %icon%
+label-focused-background = ${colors.selection}
+label-focused-padding = 2
+label-focused-underline = ${colors.cyan}
+label-unfocused = %index%: %icon%
+label-unfocused-padding = 2
+
+label-visible = %index%: %icon%
+label-visible-padding = 2 
+
+label-urgent = %index%: %icon%
+label-urgent-background = ${colors.red}
+label-urgent-padding = 2
+
+[module/battery-combined-udev]
+type = custom/script
+exec = ~/.config/polybar/battery-combined-udev.sh
+tail = true
+format-underline = ${colors.purple}
+
+[module/date]
+type = internal/date
+interval = 1.0
+date = 
+time = %H:%M
+date-alt = %d-%m-%Y 
+time-alt = %H:%M:%S
+format =  <label>
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+format-underline = ${colors.green}
+
+label = %date% %time%
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/.config/polybar/player-mpris-tail.py -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+click-left = ~/.config/polybar/player-mpris-tail.py previous
+click-right = ~/.config/polybar/player-mpris-tail.py next
+click-middle = ~/.config/polybar/player-mpris-tail.py play-pause
+
+[module/backlight]
+type = custom/script
+interval = 0.2
+exec = ~/.config/polybar/backlight.sh
+
+scroll-up = exec light -A 5
+scroll-down = exec light -U 5
+
+format-prefix = " "
+format-underline = ${colors.red}
+label = %output%
+label-foreground = ${colors.foreground}
+
+[module/volume]
+type = internal/volume
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+master-mixer = Master
+format-volume = <ramp-volume> <label-volume>
+label-muted =  muted
+label-muted-foreground = ${colors.selection}
+label-muted-underline = ${self.format-volume-underline}
+format-volume-underline = ${colors.yellow}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/pomobar]
+type= custom/ipc
+hook-0 = cat ~/.pomobaroutput
+initial = 1
+click-left = ~/.config/polybar/pomobar.py --action=new &
+click-middle = ~/.config/polybar/pomobar.py --action=kill &
+click-right = ~/.config/polybar/pomobar.py --action=break &
+format-underline = ${colors.pink}
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0

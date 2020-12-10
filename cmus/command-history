@@ -1,0 +1,10 @@
+clear
+load
+save
+set lib_sort=albumartist date album discnumber tracknumber title filename play_count
+767
+load -p test
+load -p Test
+save -p test
+save -p Test
+q

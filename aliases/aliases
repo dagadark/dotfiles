@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Zsh
+
+# Neovim
+alias vi='nvim'
+alias vim='nvim'
+
+# Git
+
+# Hadolint
+
+# Yay
+alias yayi='yay -S'     # install
+alias yayhi='yay -Ql'   # Yay Has Installed - what files where installed in a package
+alias yays='yay -Ss'    # search
+alias yayu='yay -Syu'   # update
+alias yayr='yay -R'     # remove package but not dependencies
+alias yayrr='yay -Rs'   # remove package with unused dependencies by other softwares
+alias yayrc='yay -Sc'   # remove yay's cache
+alias yayls='yay -Qe'
+
+# Golang
+alias gob="go build"
+alias gor="go run" 
+alias goc="go clean -i"
+alias gta="go test ./..."       # go test all
+alias gia="go install ./..."    # go install all
+
+# Kubectl
+alias k="kubectl"
+alias kcuc="kubectl config use-context"
+alias kcsc="kubectl config set-context"
+alias kcdc="kubectl config delete-context"
+alias kccc="kubectl config current-context"
+alias kcgc="kubectl config get-contexts"
+alias kgp="kubectl get pods"
+alias kgs="kubectl get svc"
+alias kcn="kubectl config set-context $(kubectl config current-context) --namespace"
+
+# Git
+alias gs='git status'
+alias ga='git add'
+alias gp='git push'
+alias gpo='git push origin'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias gbr='git branch -r'                                                                           # display remote branch
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias gco='git checkout '
+alias gl='git log'
+alias gr='git remote'
+alias grs='git remote show'
+alias glo='git log --pretty="oneline"'
+alias glol='git log --graph --oneline --decorate'
+alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master
+alias gblog="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"                                                              # git log for each branches
+alias gsub="git submodule update --remote"                                                        # pull submodules
+
+# Listing files
+alias ll='ls -l'      

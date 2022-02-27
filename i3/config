@@ -100,16 +100,15 @@ set $monitor_one "HDMI-1"
 set $monitor_two "eDP-1"
 
 workspace 1 output $monitor_one
-workspace 2 output $monitor_two
+workspace 2 output $monitor_one
 workspace 3 output $monitor_one
 workspace 4 output $monitor_one
 workspace 5 output $monitor_one
 workspace 6 output $monitor_one
-workspace 7 output $monitor_one
-workspace 8 output $monitor_two
-workspace 9 output $monitor_two
-workspace 10 output $monitor_two
-
+workspace 7 output $monitor_two
+workspace 8 output $monitor_one
+workspace 9 output $monitor_one
+workspace 10 output $monitor_one
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -227,20 +226,17 @@ exec --no-startup-id ibus-daemon -drx
 # X11 Compositors: picom
 exec --no-startup-id /home/dagadark/.config/picom/launch.sh
 
-# Less blue light from screen
-exec --no-startup-id redshift-gtk -c /home/dagadark/.config/redshift/redshift.conf
-
 # Network manager
 exec --no-startup-id nm-applet
 
 # Notification
 exec --no-startup-id dunst -conf /home/dagadark/.config/dunst/dunstrc
 
-# Conky 
-exec --no-startup-id conky -d -q -c /home/dagadark/.config/conky/polycore/conkyrc.lua
+# Dynamic Wallpaper
+exec_always --no-startup-id dwall -s island
 
 # Dynamic Wallpaper
-exec --no-startup-id dwall -s exodus
+exec --no-startup-id autorandr -c
 
 # Set titlebars disable for using i3gaps correctly
 for_window [class="^.*"] border pixel 3

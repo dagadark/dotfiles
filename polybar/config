@@ -40,13 +40,12 @@ module-margin-right = 2
 underline-size = 2
 font-0 = "Noto Sans:fontformat=truetype:size=10;0"
 font-1 = "Noto Sans CJK JP:fontformat=truetype:size=10;0
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;0"
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=10;0"
-font-4 = "Font Awesome 5 Brands:style=Regular:pixelsize=10;0"
-
+font-2 = "Font Awesome 6 Free:style=Solid:pixelsize=10;0"
+font-3 = "Font Awesome 6 Free:style=Regular:pixelsize=10;0"
+font-4 = "Font Awesome 6 Brands:style=Regular:pixelsize=10;0"
 modules-left = i3 
 modules-center = player-mpris-tail
-modules-right = pomobar date backlight volume battery-combined-udev 
+modules-right = pomobar date backlight pulseaudio-control battery-combined-udev 
 
 override-redirect = false
 tray-padding = 2
@@ -119,17 +118,12 @@ click-right = ~/.config/polybar/player-mpris-tail.py next
 click-middle = ~/.config/polybar/player-mpris-tail.py play-pause
 
 [module/backlight]
-type = custom/script
-interval = 0.2
-exec = ~/.config/polybar/backlight.sh
-
-scroll-up = exec light -A 5
-scroll-down = exec light -U 5
-
-format-prefix = " "
+type = internal/backlight
+card = intel_backlight
+enable-scroll = true
+format =   <label>
+label = %percentage%%
 format-underline = ${colors.red}
-label = %output%
-label-foreground = ${colors.foreground}
 
 [module/volume]
 type = internal/volume
@@ -145,6 +139,22 @@ format-volume-underline = ${colors.yellow}
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+format-underline = ${colors.cyan}
+
+# Icons mixed from Font Awesome 5 and Material Icons
+# You can copy-paste your options for each possible action, which is more
+# trouble-free but repetitive, or apply only the relevant ones (for example
+# --sink-blacklist is only needed for next-sink).
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_3__sink: LG Speaker" --sink-nickname "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink: Desktop" listen
+click-right = exec pavucontrol &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_4__sink","alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_5__sink" next-sink
+scroll-up = pulseaudio-control --volume-max 100 up
+scroll-down = pulseaudio-control --volume-max 100 down
 
 [module/pomobar]
 type= custom/ipc
